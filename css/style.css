@@ -1,0 +1,76 @@
+/*导航栏的样式参考论坛上的游戏样式 地址为https://neozl24.github.io/frogger-game/*/
+body {
+    margin: 0;
+    text-align: center;
+    background-image: url("../images/bg.jpg");
+}
+header{
+    margin-bottom: -50px;
+    height: 60px;
+    background-color: #5dbf46;
+    display: -moz-box;
+    display: -webkit-box;
+    display: box;
+}
+nav{
+    height: 100%;
+    width: 505px;
+    display: -moz-box;
+    display: -webkit-box;
+    display: box;
+
+}
+nav span{
+    padding: 0 8px;
+    font-size: 23px;
+    font-style: normal;
+    font-weight: 500;
+    display: inline-block;
+    line-height: 60px;
+    text-align: center;
+    -moz-box-flex: 1;
+    -webkit-box-flex: 1;
+    box-flex: 1;
+}
+nav h2{
+    width: 200px;
+    height: 60px;
+    -moz-box-flex:1;
+    -webkit-box-flex: 1;
+    box-flex: 1;
+}
+nav #options{
+    -moz-box-flex:1;
+    -webkit-box-flex: 1;
+    box-flex: 1;
+}
+nav button{
+    float: right;
+    width: 65px;
+    height: 60px;
+    background: black;
+    border-style: none;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+nav p{
+     display: block;
+    -webkit-margin-before: 1px;
+    -webkit-margin-after: 1px;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+}
+nav .line{
+    margin: 6px;
+    border-bottom: 3px solid #fff;
+}
+#one{
+    -moz-box-flex: 1;
+    -webkit-box-flex: 1;
+    box-flex: 1;
+}
+#three{
+    -moz-box-flex: 1;
+    -webkit-box-flex: 1;
+    box-flex: 1;
+}
