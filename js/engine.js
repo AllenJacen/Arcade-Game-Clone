@@ -40,6 +40,7 @@ var Engine = (function(global) {
         update(dt);
         render();
         //石头的放置
+            allRocks[0].Rplace();
             allRocks[1].Rplace();
         /* 设置我们的 lastTime 变量，它会被用来决定 main 函数下次被调用的事件。 */
         lastTime = now;

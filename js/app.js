@@ -5,12 +5,13 @@
 */
 var ENEMYnumber= 6,ENEMYx=-30,ENNEMYy=70,ROW=101,COL=83;var count= 0,score=0;
 var oScore;
+var allowedKeys;
 var hinder;//障碍
 // 这是我们的玩家要躲避的敌人
 var Enemy = function(y,speed) {
     this.x=ENEMYx*Math.floor(Math.random()*10*speed);
     this.y=y;
-    this.speed=Math.ceil(Math.random()*30*speed+60);
+    this.speed=0/*Math.ceil(Math.random()*30*speed+60)*/;
     this.sprite = 'images/enemy-bug.png';
 };
 
@@ -31,20 +32,24 @@ Enemy.prototype.render = function() {
 var Player=function(x,y){
     this.x=x;
     this.y=y;
+    this.indexX=3;
+    this.indexY=6;
     this.sprite='images/char-cat-girl.png';
 };
 Player.prototype.update=function(dt){
     if(this.y === -13){
     count++;
     if(count==20){
-        score++;
+        score+=10;
         this.x = ROW*2;
         this.y = COL*4+ENNEMYy;
+        this.indexX=3;
+        this.indexY=6;
     }
         oScore=document.getElementById("scores");
         oScore.innerHTML=score;
-        if(score==10){
-            alert("成绩达到10分！通关");
+        if(score==100){
+            alert("成绩达到100分！通关");
             oScore.innerHTML=0;
         }
     }
@@ -57,68 +62,81 @@ Player.prototype.render=function(){
 };
 Player.prototype.handleInput=function(movement){
         switch (movement){
-            case'left':
-                if(this.x>0){
-                    if(this.y==hinder.y){
-                        if(Math.abs(this.x-hinder.x)>130||this.x<hinder.x){
-                            this.x -=ROW ;
-                        }
-                    }else{
-                        this.x -=ROW ;
-                    }
-                }break;
+             case'left':
+             if(this.x>0&&player.checkLeft()==true){
+             this.x -=ROW ;
+                 this.indexX--;
+             }break;
 
             case'right':
-                if(this.x<ROW*4){
-                    if(this.y==hinder.y){
-                        if(Math.abs(this.x-hinder.x)>130||this.x>hinder.x){
-                            this.x +=ROW ;
-                        }
-                    }else{
-                        this.x +=ROW ;
-                    }
-                }break;
-            case'up':
-                if(this.y>0){
-                   if(this.x==hinder.x){
-                       if(Math.abs(this.y-hinder.y)>130||this.y<hinder.y){
-                           this.y -=COL;
-                       }
-                   }else{
-                       this.y -=COL;
-                   }
-                }break;
-            case'down':
-                if(this.y<355){
-                    if(this.x==hinder.x){
-                        if(Math.abs(this.y-hinder.y)>130||this.y>hinder.y){
-                            this.y +=COL;
-                        }
-                    }else{
-                        this.y +=COL;
-                    }
-                }break;
-            /* case'left':
-             if(this.x>0){
-             this.x -=ROW ;
-             }break;*/
-
-            /*case'right':
-             if(this.x<ROW*4){
+             if(this.x<ROW*4&&player.checkRight()==true){
              this.x +=ROW ;
-             }break;*/
-            /*case'up':
-             if(this.y>0){
+                 this.indexX++;
+             }break;
+            case'up':
+             if(this.y>0&&player.checkUp()==true){
              this.y -=COL;
-             }break;*/
-            /*case'down':
-             if(this.y<355){
+                 this.indexY--;
+             }break;
+            case'down':
+             if(this.y<355&&player.checkDown()==true){
              this.y +=COL;
-             }break;*/
-
+                 this.indexY++;
+             }break;
         }
 
 };
+//此为玩家是否可以移动的函数
+Player.prototype.checkLeft=function(){
+    if(!getObjectByattr(this.indexX-1,this.indexY)){
+        return true;
+    }else{
+        if(this.x-getObjectByattr(this.indexX-1,this.indexY).x>130){
+            return true;
+        }
+        return false;
+    }
+};
+Player.prototype.checkRight=function(){
+    if(!getObjectByattr(this.indexX+1,this.indexY)){
+        return true;
+    }else{
+        if(getObjectByattr(this.indexX+1,this.indexY).x-this.x>130){
+            return true;
+        }
+        return false;
+    }
+};
+Player.prototype.checkDown=function(){
+    if(!getObjectByattr(this.indexX,this.indexY+1)){
+        return true;
+    }else{
+        if(getObjectByattr(this.indexX,this.indexY+1).y-this.y>130){
+            return true;
+        }
+        return false;
+    }
+};
+Player.prototype.checkUp=function(){
+    if(!getObjectByattr(this.indexX,this.indexY-1)){
+            return true;
+    }else{
+        if(this.y-getObjectByattr(this.indexX,this.indexY-1).y>130){
+            return true;
+        }
+        console.log("buxing");
+        return false;
+    }
+
+};
+//此为通过坐标获取石头位置的函数
+function getObjectByattr(x,y){
+    for(var i=0;i<allRocks.length;i++){
+        if(allRocks[i].indexX==x&&allRocks[i].indexY==y){
+            return allRocks[i];
+        }
+    }
+}
 //此为游戏的碰撞检测
 Player.prototype.checkCollisions= function(){
     oScore=document.getElementById("scores");
@@ -127,7 +145,7 @@ Player.prototype.checkCollisions= function(){
         if(this.y==allEnemies[i].y){
             if(Math.abs(this.x-allEnemies[i].x)<40){
               if(score!==0){
-                  score--;
+                  score-=10;
                   oScore.innerHTML=score;
               }else{
                   alert("重新开始游戏！");
@@ -135,6 +153,8 @@ Player.prototype.checkCollisions= function(){
               }
                 this.x = ROW*2;
                 this.y = COL*4+ENNEMYy;
+                this.indexX=3;
+                this.indexY=6;
             }
         }
     }
@@ -146,6 +166,8 @@ Player.prototype.checkCollisions= function(){
 var Rock=function(x,y){
     this.x=x;
     this.y=y;
+    this.indexX=this.x/ROW+1;
+    this.indexY=(this.y-ENNEMYy)/COL+2;
     this.sprite='images/Rock-small.png';
 };
 Rock.prototype.Rplace= function(){
@@ -181,7 +203,7 @@ var player=new Player(ROW*2, COL*4+ENNEMYy);
 // 把玩家对象放进一个叫 player 的变量里面
 
 var allRocks=[];
-for(var i=0;i<10;i++){
+for(var i=0;i<2;i++){
     var rock =new Rock(ROW*Math.floor(Math.random()*4),COL* Math.floor(Math.random()*4)+ENNEMYy);
     allRocks.push(rock);
 }
@@ -207,7 +229,7 @@ hinder=allRocks[1];
 // 这段代码监听游戏玩家的键盘点击事件并且代表将按键的关键数字送到 Play.handleInput()
 // 方法里面。你不需要再更改这段代码了。
 document.addEventListener('keyup', function(e) {
-    var allowedKeys = {
+    allowedKeys = {
         37: 'left',
         38: 'up',
         39: 'right',
