@@ -138,7 +138,7 @@ var Engine = (function(global) {
     }
 
     /* 紧接着我们来加载我们知道的需要来绘制我们游戏关卡的图片。然后把 init 方法设置为回调函数。
-     * 那么党这些图片都已经加载完毕的时候游戏就会开始。
+     * 那么当这些图片都已经加载完毕的时候游戏就会开始。
      */
     Resources.load([
         'images/stone-block.png',
@@ -149,7 +149,10 @@ var Engine = (function(global) {
         'images/char-cat-girl.png',
         'images/Rock-small.png',
         'images/new-img/0.7.png',
-        'images/new-img/0.8.png'
+        'images/new-img/0.8.png',
+        'images/char-horn-girl.png',
+        'images/char-pink-girl.png',
+        'images/char-princess-girl.png'
 
     ]);
     Resources.onReady(init);

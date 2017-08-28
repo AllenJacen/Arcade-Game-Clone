@@ -7,11 +7,16 @@
 </head>
 <body>
 <header>
-    <audio src="1.mp3" autoplay="autoplay">
-    </audio>
+   <!-- <audio src="1.mp3" autoplay="autoplay">
+    </audio>-->
     <div id="one"></div><nav>
     <span>分数：<span id="scores">0</span></span>
     <h2>快到河边来</h2>
+    <div id="imgs">
+        <img src="images/player-imgs/char-cat-girl.png" alt="" >
+    </div>
+</nav>
+    <div id="three">
     <div id="options">
         <button>
             <p class="line"></p>
@@ -19,8 +24,19 @@
             <p class="line"></p>
         </button>
     </div>
-</nav><div id="three"></div>
+</div>
 </header>
+  <div id="selected">
+      <ul>
+          <li><img src="images/player-imgs/char-boy.png" alt="" name="char-boy"></li>
+          <li><img src="images/player-imgs/char-cat-girl.png" alt="" name="char-cat-girl"></li>
+          <li><img src="images/player-imgs/char-horn-girl.png" alt=""  name="char-horn-girl"></li>
+          <li><img src="images/player-imgs/char-pink-girl.png" alt="" name="char-pink-girl"></li>
+          <li><img src="images/player-imgs/char-princess-girl.png" alt="" name="char-princess-girl"></li>
+      </ul>
+  </div>
+    <script src="jquery-1.12.4.js"></script>
+    <script src="js/style.js"></script>
     <script src="js/resources.js"></script>
     <script src="js/app.js"></script>
     <script src="js/engine.js"></script>

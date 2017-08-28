@@ -6,12 +6,12 @@
 var ENEMYnumber= 6,ENEMYx=-30,ENNEMYy=70,ROW=101,COL=83;var count= 0,score=0;
 var oScore;
 var allowedKeys;
-var hinder;//障碍
+var num=1;
 // 这是我们的玩家要躲避的敌人
 var Enemy = function(y,speed) {
     this.x=ENEMYx*Math.floor(Math.random()*10*speed);
     this.y=y;
-    this.speed=0/*Math.ceil(Math.random()*30*speed+60)*/;
+    this.speed=Math.ceil(Math.random()*30*speed+60);
     this.sprite = 'images/enemy-bug.png';
 };
 
@@ -41,6 +41,7 @@ Player.prototype.update=function(dt){
     count++;
     if(count==20){
         score+=10;
+        num++;
         this.x = ROW*2;
         this.y = COL*4+ENNEMYy;
         this.indexX=3;
@@ -124,7 +125,7 @@ Player.prototype.checkUp=function(){
         if(this.y-getObjectByattr(this.indexX,this.indexY-1).y>130){
             return true;
         }
-        console.log("buxing");
+        //console.log("buxing");
         return false;
     }
 
@@ -179,19 +180,6 @@ Rock.prototype.Rplace= function(){
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 // 现在实例化你的所有对象
 var allEnemies=[];
 for(var i=0;i<ENEMYnumber;i++){
@@ -203,27 +191,14 @@ var player=new Player(ROW*2, COL*4+ENNEMYy);
 // 把玩家对象放进一个叫 player 的变量里面
 
 var allRocks=[];
-for(var i=0;i<2;i++){
+var arock=[];
+for(var i=0;i<12;i++){
     var rock =new Rock(ROW*Math.floor(Math.random()*4),COL* Math.floor(Math.random()*4)+ENNEMYy);
-    allRocks.push(rock);
+    arock.push(rock);
 }
+allRocks.push(arock[0]);
+allRocks.push(arock[1]);
 //把所以石头放进一个叫allRocks的数组里面
-
-/*while(score%10==0){
-    allRocks[Math.ceil(Math.random()*10)].Rplace();
-}*/
-hinder=allRocks[1];
-
-
-
-
-
-
-
-
-
-
-
 
 
 // 这段代码监听游戏玩家的键盘点击事件并且代表将按键的关键数字送到 Play.handleInput()

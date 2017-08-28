@@ -1,4 +1,6 @@
-/*导航栏的样式参考论坛上的游戏样式 地址为https://neozl24.github.io/frogger-game/*/
+li{
+    list-style: none;
+}
 body {
     margin: 0;
     text-align: center;
@@ -15,6 +17,7 @@ header{
 nav{
     height: 100%;
     width: 505px;
+    margin: 0 auto;
     display: -moz-box;
     display: -webkit-box;
     display: box;
@@ -35,16 +38,22 @@ nav span{
 nav h2{
     width: 200px;
     height: 60px;
-    -moz-box-flex:1;
-    -webkit-box-flex: 1;
-    box-flex: 1;
+    -moz-box-flex:2;
+    -webkit-box-flex: 2;
+    box-flex: 2;
 }
-nav #options{
-    -moz-box-flex:1;
-    -webkit-box-flex: 1;
-    box-flex: 1;
+nav #imgs{
+    width: 60px;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    position: relative;
 }
-nav button{
+#imgs img{
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+#three button{
     float: right;
     width: 65px;
     height: 60px;
@@ -53,14 +62,14 @@ nav button{
     box-sizing: border-box;
     cursor: pointer;
 }
-nav p{
+#three p{
      display: block;
     -webkit-margin-before: 1px;
     -webkit-margin-after: 1px;
     -webkit-margin-start: 0px;
     -webkit-margin-end: 0px;
 }
-nav .line{
+#three .line{
     margin: 6px;
     border-bottom: 3px solid #fff;
 }
@@ -73,4 +82,19 @@ nav .line{
     -moz-box-flex: 1;
     -webkit-box-flex: 1;
     box-flex: 1;
+}
+#selected{
+    display: none;
+    position: absolute;
+    right: 0px;
+    top: 60px;
+    height: 94px;
+    /*width: 303px;*/
+    background: rgba(0,0,0,0.5);
+}
+#selected ul li{
+    float: left;
+    cursor: pointer;
+    border: 1px solid black;
+    margin-right: 2px;
 }
