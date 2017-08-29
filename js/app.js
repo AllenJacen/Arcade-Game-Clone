@@ -49,7 +49,7 @@ Player.prototype.update=function(){
     }
         oScore=document.getElementById("scores");
         oScore.innerHTML=score;
-        if(score==20){
+        if(score==100){
             alert("成绩达到100分！通关");
             oScore.innerHTML=0;
             score=0;
@@ -196,7 +196,21 @@ Rock.prototype.update= function () {
 
     }
 };*/
+var i=0;
+var num=0;
+Rock.prototype.update= function (){
 
+    if(score%10==0&&score!=0){
+        num++;
+        console.log(num);
+        if(num==3000){
+            allRocks.push(new Rock(ROW*Math.floor(Math.random()*5),COL* Math.floor(Math.random()*4)+ENNEMYy));
+        }
+    }
+    if(num==3100){
+        num=0;
+    }
+}
 Rock.prototype.render=function(){
     ctx.drawImage(Resources.get(this.sprite),this.x, this.y);
 };
@@ -213,13 +227,14 @@ var player=new Player(ROW*2, COL*4+ENNEMYy);
 // 把玩家对象放进一个叫 player 的变量里面
 
 var allRocks=[];
-var arock=[];
+
+/*var arock=[];
 for(var i=0;i<10;i++){
     var rock =new Rock(ROW*Math.floor(Math.random()*5),COL* Math.floor(Math.random()*4)+ENNEMYy);
     arock.push(rock);
 }
     allRocks.push(arock[0]);
-    allRocks.push(arock[1]);
+    allRocks.push(arock[1]);*/
 
 //把所以石头放进一个叫allRocks的数组里面
 

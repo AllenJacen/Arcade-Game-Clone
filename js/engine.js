@@ -79,9 +79,9 @@ var Engine = (function(global) {
         allEnemies.forEach(function(enemy) {
             enemy.update(dt);
         });
-        /*allRocks.forEach(function(rock) {
+        allRocks.forEach(function(rock) {
             rock.update();
-        });*/
+        });
        player.update();
     }
 
