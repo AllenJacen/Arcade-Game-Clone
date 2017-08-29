@@ -177,39 +177,20 @@ var Rock=function(x,y){
     this.indexY=(this.y-ENNEMYy)/COL+2;
     this.sprite='images/Rock-small.png';
 };
-/*var x=1;
 var num=0;
-Rock.prototype.update= function () {
-    if(score%10==0&&score!=0){
+var x=0;
+Rock.prototype.update= function (){
+    if(score%10==0&&score!=0&&x<6){
         num++;
         console.log(num);
-        if(num==3000){
-            console.log(x);
-            allRocks.push(arock[x+1]);
+        if(num==3000&&x<6){
+            allRocks.push(new Rock(ROW*Math.floor(Math.random()*5),COL* Math.floor(Math.random()*4)+ENNEMYy));
             x++;
         }
-    }
     if(num==3100){
         num=0;
     }
-    if(x==10){
-
-    }
-};*/
-var i=0;
-var num=0;
-Rock.prototype.update= function (){
-
-    if(score%10==0&&score!=0){
-        num++;
-        console.log(num);
-        if(num==3000){
-            allRocks.push(new Rock(ROW*Math.floor(Math.random()*5),COL* Math.floor(Math.random()*4)+ENNEMYy));
-        }
-    }
-    if(num==3100){
-        num=0;
-    }
+}
 }
 Rock.prototype.render=function(){
     ctx.drawImage(Resources.get(this.sprite),this.x, this.y);
@@ -227,15 +208,10 @@ var player=new Player(ROW*2, COL*4+ENNEMYy);
 // 把玩家对象放进一个叫 player 的变量里面
 
 var allRocks=[];
-
-/*var arock=[];
-for(var i=0;i<10;i++){
-    var rock =new Rock(ROW*Math.floor(Math.random()*5),COL* Math.floor(Math.random()*4)+ENNEMYy);
-    arock.push(rock);
-}
-    allRocks.push(arock[0]);
-    allRocks.push(arock[1]);*/
-
+var a=new Rock(ROW*Math.floor(Math.random()*5),COL* Math.floor(Math.random()*4)+ENNEMYy);
+var b=new Rock(ROW*Math.floor(Math.random()*5),COL* Math.floor(Math.random()*4)+ENNEMYy);
+allRocks.push(a);
+allRocks.push(b);
 //把所以石头放进一个叫allRocks的数组里面
 
 
