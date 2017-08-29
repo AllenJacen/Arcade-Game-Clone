@@ -2,11 +2,12 @@
 /*
  count：是用来记时的，到达河岸就开始记时，count达到某个值才会使player复位。
  score：是用来记录成绩的。
+ ROW：行宽
+ COL：列宽
+ ENEMYnumber:虫子的数量。
 */
-var ENEMYnumber= 6,ENEMYx=-30,ENNEMYy=70,ROW=101,COL=83;var count= 0,score=0;
+var ENEMYnumber= 6,ENEMYx=-30,ENNEMYy=70,ROW=101,COL=83;var count= 0,score= 0;
 var oScore;
-var allowedKeys;
-var num=1;
 // 这是我们的玩家要躲避的敌人
 var Enemy = function(y,speed) {
     this.x=ENEMYx*Math.floor(Math.random()*10*speed);
@@ -21,7 +22,7 @@ Enemy.prototype.update = function(dt) {
     if(this.x<=550){
         this.x += dt*this.speed;
     }else{
-        this.x=0;
+        this.x=-50;
     }
 };
 // 此为游戏必须的函数，用来在屏幕上画出敌人，
@@ -36,12 +37,11 @@ var Player=function(x,y){
     this.indexY=6;
     this.sprite='images/char-cat-girl.png';
 };
-Player.prototype.update=function(dt){
+Player.prototype.update=function(){
     if(this.y === -13){
     count++;
     if(count==20){
         score+=10;
-        num++;
         this.x = ROW*2;
         this.y = COL*4+ENNEMYy;
         this.indexX=3;
@@ -49,15 +49,21 @@ Player.prototype.update=function(dt){
     }
         oScore=document.getElementById("scores");
         oScore.innerHTML=score;
-        if(score==100){
+        if(score==20){
             alert("成绩达到100分！通关");
             oScore.innerHTML=0;
+            score=0;
+            this.x = ROW*2;
+            this.y = COL*4+ENNEMYy;
+            this.indexX=3;
+            this.indexY=6;
         }
     }
     if(this.x == ROW*2&&this.y == COL*4+ENNEMYy){
         count=0;
     }
 };
+
 Player.prototype.render=function(){
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
@@ -171,13 +177,29 @@ var Rock=function(x,y){
     this.indexY=(this.y-ENNEMYy)/COL+2;
     this.sprite='images/Rock-small.png';
 };
-Rock.prototype.Rplace= function(){
+/*var x=1;
+var num=0;
+Rock.prototype.update= function () {
+    if(score%10==0&&score!=0){
+        num++;
+        console.log(num);
+        if(num==3000){
+            console.log(x);
+            allRocks.push(arock[x+1]);
+            x++;
+        }
+    }
+    if(num==3100){
+        num=0;
+    }
+    if(x==10){
 
+    }
+};*/
+
+Rock.prototype.render=function(){
     ctx.drawImage(Resources.get(this.sprite),this.x, this.y);
-
 };
-
-
 
 
 // 现在实例化你的所有对象
@@ -192,13 +214,21 @@ var player=new Player(ROW*2, COL*4+ENNEMYy);
 
 var allRocks=[];
 var arock=[];
-for(var i=0;i<12;i++){
-    var rock =new Rock(ROW*Math.floor(Math.random()*4),COL* Math.floor(Math.random()*4)+ENNEMYy);
+for(var i=0;i<10;i++){
+    var rock =new Rock(ROW*Math.floor(Math.random()*5),COL* Math.floor(Math.random()*4)+ENNEMYy);
     arock.push(rock);
 }
-allRocks.push(arock[0]);
-allRocks.push(arock[1]);
+    allRocks.push(arock[0]);
+    allRocks.push(arock[1]);
+
 //把所以石头放进一个叫allRocks的数组里面
+
+
+
+
+
+
+
 
 
 // 这段代码监听游戏玩家的键盘点击事件并且代表将按键的关键数字送到 Play.handleInput()

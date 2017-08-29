@@ -40,8 +40,6 @@ var Engine = (function(global) {
         update(dt);
         render();
         //石头的放置
-            allRocks[0].Rplace();
-            allRocks[1].Rplace();
         /* 设置我们的 lastTime 变量，它会被用来决定 main 函数下次被调用的事件。 */
         lastTime = now;
 
@@ -81,6 +79,9 @@ var Engine = (function(global) {
         allEnemies.forEach(function(enemy) {
             enemy.update(dt);
         });
+        /*allRocks.forEach(function(rock) {
+            rock.update();
+        });*/
        player.update();
     }
 
@@ -96,7 +97,7 @@ var Engine = (function(global) {
                 'images/stone-block.png',   // 第一行石头
                 'images/stone-block.png',   // 第二行石头
                 'images/stone-block.png',   // 第三行石头
-                'images/stone-block.png',   // 第一行草地
+                'images/stone-block.png',   // 第一行石头
                 'images/grass-block.png'    // 第二行草地
             ],
             numRows = 6,
@@ -125,7 +126,10 @@ var Engine = (function(global) {
         allEnemies.forEach(function(enemy) {
             enemy.render();
         });
-
+        allRocks.forEach(function(Rock){
+            //console.log(allRocks);
+            Rock.render();
+        });
         player.render();
     }
 
