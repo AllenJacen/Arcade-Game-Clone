@@ -22,7 +22,7 @@ Enemy.prototype.update = function(dt) {
     if(this.x<=550){
         this.x += dt*this.speed;
     }else{
-        this.x=-50;
+        this.x=-101;
     }
 };
 // 此为游戏必须的函数，用来在屏幕上画出敌人，
@@ -37,15 +37,18 @@ var Player=function(x,y){
     this.indexY=6;
     this.sprite='images/char-cat-girl.png';
 };
+Player.prototype.resetPlayer=function(){
+    this.x = ROW*2;
+    this.y = COL*4+ENNEMYy;
+    this.indexX=3;
+    this.indexY=6;
+};
 Player.prototype.update=function(){
     if(this.y === -13){
     count++;
     if(count==20){
         score+=10;
-        this.x = ROW*2;
-        this.y = COL*4+ENNEMYy;
-        this.indexX=3;
-        this.indexY=6;
+       this.resetPlayer();
     }
         oScore=document.getElementById("scores");
         oScore.innerHTML=score;
@@ -53,10 +56,7 @@ Player.prototype.update=function(){
             alert("成绩达到100分！通关");
             oScore.innerHTML=0;
             score=0;
-            this.x = ROW*2;
-            this.y = COL*4+ENNEMYy;
-            this.indexX=3;
-            this.indexY=6;
+            this.resetPlayer();
         }
     }
     if(this.x == ROW*2&&this.y == COL*4+ENNEMYy){
@@ -150,7 +150,7 @@ Player.prototype.checkCollisions= function(){
     oScore.innerHTML=score;
     for( var i=0;i<allEnemies.length;i++){
         if(this.y==allEnemies[i].y){
-            if(Math.abs(this.x-allEnemies[i].x)<40){
+            if(Math.abs(this.x-allEnemies[i].x)<80){
               if(score!==0){
                   score-=10;
                   oScore.innerHTML=score;
@@ -158,10 +158,7 @@ Player.prototype.checkCollisions= function(){
                   alert("重新开始游戏！");
                   score=0;
               }
-                this.x = ROW*2;
-                this.y = COL*4+ENNEMYy;
-                this.indexX=3;
-                this.indexY=6;
+                this.resetPlayer();
             }
         }
     }
@@ -177,9 +174,12 @@ var Rock=function(x,y){
     this.indexY=(this.y-ENNEMYy)/COL+2;
     this.sprite='images/Rock-small.png';
 };
-var num=0;
-var x=0;
-Rock.prototype.update= function (){
+
+//这部分是我在提交之后，自己修改的，但是看了导师审批后给的意见，感觉导师的性能更好。
+// 记录石头个数
+//var num=0;
+//var x=0;
+/*Rock.prototype.update= function (){
     if(score%10==0&&score!=0&&x<6){
         num++;
         console.log(num);
@@ -191,7 +191,21 @@ Rock.prototype.update= function (){
         num=0;
     }
 }
-}
+};*/
+
+// 记录石头个数
+var rockNum = 0;
+// 设置计时器，大约每 1000ms 添加一个石头
+var rockTimerId = window.setInterval(function(){
+    rockNum++;
+    var rock =new Rock(ROW*Math.floor(Math.random()*5),COL* Math.floor(Math.random()*4)+ENNEMYy);
+    allRocks.push(rock);
+}, 1000);
+Rock.prototype.update=function(){
+    if (rockNum > 4) {
+        window.clearInterval(rockTimerId);
+    }
+};
 Rock.prototype.render=function(){
     ctx.drawImage(Resources.get(this.sprite),this.x, this.y);
 };
